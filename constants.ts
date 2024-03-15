@@ -3,23 +3,30 @@ import { Metadata } from "next";
 export const socials = [
   {
     id: 1,
-    name: "Twitter",
-    url: "https://twitter.com/YenneferIlw",
-    handle: "@YenneferIlw",
+    name: "Instagram",
+    icon: "https://www.instagram.com/prayse.app",
+    url: "https://www.instagram.com/prayse.app",
+    handle: "prayse.app",
   },
   {
     id: 2,
-    name: "Instagram",
-    url: "https://www.instagram.com/ilwyennefer",
-    handle: "ilwyennefer",
+    name: "IOS",
+    icon: "https://www.instagram.com/prayse.app",
+    url: "https://apps.apple.com/us/app/prayseapp/id6443480347",
+    handle: "PrayseApp",
+  },
+  {
+    id: 2,
+    name: "Android",
+    icon: "https://www.instagram.com/prayse.app",
+    url: "https://play.google.com/store/apps/details?id=com.sahag98.prayerListApp&hl=en_US&gl=US",
+    handle: "Prayse",
   },
 ];
 
-const title = "ILW Yennefer";
+const title = "Prayse Newsletter";
 const description =
-  "Full-Stack Software Engineer 🧑🏻‍💻 working with cutting-edge stuff.";
-const image =
-  "https://yt3.ggpht.com/VoEBu0KxtQkfWretx-3_NqxKnoLqfKNTtWq0KFigdqaqVQFz8CggKgqkcxXqCDW7zYWlZZJOuQ=s108-c-k-c0x00ffffff-no-rj";
+  "Join our newsletter to stay up-to-date on what's next for Prayse!";
 
 export const metaData: Metadata = {
   title: title,
@@ -27,9 +34,8 @@ export const metaData: Metadata = {
   openGraph: {
     title,
     description,
-    url: "https://ilwyennefer.com",
-    siteName: "ILW Yennefer",
-    images: [{ url: image }],
+    url: "https://newsletter.prayse.app/",
+    siteName: "Prayse Newsletter",
     locale: "en-US",
     type: "website",
   },
@@ -43,12 +49,5 @@ export const metaData: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  twitter: {
-    title: title,
-    description: description,
-    card: "summary_large_image",
-    images: [image],
-    creator: "@YenneferIlw",
   },
 };

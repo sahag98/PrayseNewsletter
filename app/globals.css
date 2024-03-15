@@ -16,17 +16,17 @@
   }
 
   .newsletter-form {
-    --primary: #8c4ec2;
-    --primary-dark: #6b21a8;
+    --primary: #3b82f6;
+    --primary-dark: #3b82f6;
     --primary-darkest: #3b0764;
     --input-placeholder: #a6accd;
     --input-text: #646b8c;
     --border-default: #e1e6f9;
-    --border-active: #8c4ec2;
+    --border-active: #3b82f6;
     --background: #fff;
     --button-text: #ffffff;
-    --success: #8c4ec2;
-    --trails: rgb(140, 78, 194, 0.15);
+    --success: #3b82f6;
+    --trails: #1c3f78;
   }
 
   .newsletter-form button {
@@ -215,5 +215,30 @@
     stroke-dasharray: 14px;
     stroke: var(--success);
     stroke-dashoffset: var(--success-stroke);
+  }
+
+  .newsletter-form button span.error {
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 8px;
+    transform: translateX(var(--success-x)) translateZ(0);
+    opacity: var(--success-opacity);
+    color:red;
+  }
+  .newsletter-form button span.error svg {
+    display: inline-block;
+    vertical-align: top;
+    width: 16px;
+    height: 16px;
+    margin: 4px 8px 0 0;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 14px;
+    stroke: red;
+    stroke-dashoffset:red;
   }
 }

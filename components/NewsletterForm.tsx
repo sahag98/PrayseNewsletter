@@ -18,7 +18,7 @@ function NewsletterForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setErrorMessage("");
     const email = input;
     const button = buttonRef.current;
 
@@ -41,12 +41,17 @@ function NewsletterForm() {
     });
     const data = await res.json();
 
-    if (data.error) {
-      setErrorMessage("Hey, you are already subscribed!");
+    console.log("data error:", data.error.title);
+    if (data.error.title == "Member Exists") {
+      setErrorMessage(data.error.title);
+      setSuccessMessage(undefined);
+      return;
+    } else if (data.error.title == "Invalid Resource") {
+      setErrorMessage(data.error.title);
       setSuccessMessage(undefined);
       return;
     }
-
+    setInput("");
     setSuccessMessage(data.res);
     setErrorMessage("");
   };
@@ -56,11 +61,13 @@ function NewsletterForm() {
     setErrorMessage("");
   };
 
+  console.log("error msg: ", errorMessage);
+
   return (
     <div className="flex flex-col space-y-8 md:w-[400px]">
       <form
         onSubmit={handleSubmit}
-        className="newsletter-form mt-10 animate-fade-in-3"
+        className="newsletter-form mt-5 animate-fade-in-3"
       >
         <div className="group flex items-center gap-x-4 py-1 pl-4 pr-1 rounded-[9px] bg-[#090D11] hover:bg-[#15141B] shadow-outline-gray hover:shadow-transparent focus-within:bg-[#15141B] focus-within:!shadow-outline-gray-focus transition-all duration-300">
           <EnvelopeIcon className="hidden sm:inline w-6 h-6 text-[#4B4C52] group-focus-within:text-white group-hover:text-white transition-colors duration-300" />
@@ -81,12 +88,23 @@ function NewsletterForm() {
             type="submit"
           >
             <span className="default">Subscribe</span>
-            <span className="success">
-              <svg viewBox="0 0 16 16">
-                <polyline points="3.75 9 7 12 13 5"></polyline>
-              </svg>
-              Done
-            </span>
+            {errorMessage ? (
+              <span className="error">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="3" y1="3" x2="13" y2="13" />
+                  <line x1="3" y1="13" x2="13" y2="3" />
+                </svg>
+                Error
+              </span>
+            ) : (
+              <span className="success">
+                <svg viewBox="0 0 16 16">
+                  <polyline points="3.75 9 7 12 13 5"></polyline>
+                </svg>
+                Done
+              </span>
+            )}
+
             <svg className="trails" viewBox="0 0 33 64">
               <path d="M26,4 C28,13.3333333 29,22.6666667 29,32 C29,41.3333333 28,50.6666667 26,60"></path>
               <path d="M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60"></path>
@@ -102,11 +120,23 @@ function NewsletterForm() {
       <div className="relative">
         {(successMessage || errorMessage) && (
           <div className="flex items-start space-x-2 bg-[#0A0E12] shadow-outline-gray text-white rounded-[9px] py-4 px-6 animate-fade-bottom absolute">
-            <div className="h-6 w-6 bg-[#1B2926] flex items-center justify-center rounded-full border border-[#273130] flex-shrink-0">
-              <CheckIcon className="h-4 w-4 text-[#81A89A]" />
+            <div
+              className={
+                errorMessage
+                  ? "h-6 w-6 bg-[#431010] flex items-center justify-center rounded-full border border-[#431010] flex-shrink-0"
+                  : "h-6 w-6 bg-[#1B2926] flex items-center justify-center rounded-full border border-[#273130] flex-shrink-0"
+              }
+            >
+              <CheckIcon
+                className={
+                  errorMessage
+                    ? "h-4 w-4 text-[#ac4c4f]"
+                    : "h-4 w-4 text-[#81A89A]"
+                }
+              />
             </div>
-            <div className="text-xs sm:text-sm text-[#4B4C52]">
-              {successMessage ? (
+            <div className="text-xs sm:text-sm text-[#686971]">
+              {successMessage && (
                 <p>
                   We&apos;ve added{" "}
                   <span className="text-[#ADB0B1]">
@@ -114,15 +144,15 @@ function NewsletterForm() {
                   </span>{" "}
                   to our waitlist. We&apos;ll let you know when we launch!
                 </p>
+              )}
+              {errorMessage == "Member Exists" ? (
+                <p>You are already subscribed to our newsletter. Thank you!</p>
               ) : (
-                <p>
-                  You are already added to our waitlist. We&apos;ll let you know
-                  when we launch!
-                </p>
+                <p>That seems like a fake or invalid email. Try again...</p>
               )}
             </div>
             <XMarkIcon
-              className="h-5 w-5 cursor-pointer flex-shrink-0 text-[#4A4B55]"
+              className="h-5 w-5 cursor-pointer hover:text-red-400 transition-colors flex-shrink-0 text-[#4A4B55] active:text-red-400"
               onClick={dismissMessages}
             />
           </div>
