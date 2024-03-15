@@ -8,6 +8,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-3 space-y-1">
           <Image
+            priority
             src={"/prayse-logo.png"}
             width={550}
             height={550}

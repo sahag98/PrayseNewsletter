@@ -40,19 +40,23 @@ function NewsletterForm() {
       method: "POST",
     });
     const data = await res.json();
+    console.log("res: ", data.res);
+    setSuccessMessage(data.res);
 
-    console.log("data error:", data.error.title);
-    if (data.error.title == "Member Exists") {
+    if (data.error) {
+      console.log("error: ", data.error);
+    }
+    if (data.error?.title == "Member Exists") {
       setErrorMessage(data.error.title);
       setSuccessMessage(undefined);
       return;
-    } else if (data.error.title == "Invalid Resource") {
+    } else if (data.error?.title == "Invalid Resource") {
       setErrorMessage(data.error.title);
       setSuccessMessage(undefined);
       return;
     }
     setInput("");
-    setSuccessMessage(data.res);
+
     setErrorMessage("");
   };
 
@@ -62,6 +66,8 @@ function NewsletterForm() {
   };
 
   console.log("error msg: ", errorMessage);
+
+  console.log("success: ", successMessage);
 
   return (
     <div className="flex flex-col space-y-8 md:w-[400px]">
@@ -136,19 +142,21 @@ function NewsletterForm() {
               />
             </div>
             <div className="text-xs sm:text-sm text-[#686971]">
-              {successMessage && (
+              {successMessage && !errorMessage && (
                 <p>
                   We&apos;ve added{" "}
                   <span className="text-[#ADB0B1]">
                     {successMessage.email_address}
                   </span>{" "}
-                  to our waitlist. We&apos;ll let you know when we launch!
+                  to our waitlist. Keep an eye on your inbox for the latest
+                  Prayse news!
                 </p>
               )}
-              {errorMessage == "Member Exists" ? (
+              {errorMessage == "Member Exists" && !successMessage && (
                 <p>You are already subscribed to our newsletter. Thank you!</p>
-              ) : (
-                <p>That seems like a fake or invalid email. Try again...</p>
+              )}{" "}
+              {errorMessage == "Invalid Resource" && !successMessage && (
+                <p>Something went wrong. Try again later...</p>
               )}
             </div>
             <XMarkIcon

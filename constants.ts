@@ -16,7 +16,7 @@ export const socials = [
     handle: "PrayseApp",
   },
   {
-    id: 2,
+    id: 3,
     name: "Android",
     icon: "https://www.instagram.com/prayse.app",
     url: "https://play.google.com/store/apps/details?id=com.sahag98.prayerListApp&hl=en_US&gl=US",
