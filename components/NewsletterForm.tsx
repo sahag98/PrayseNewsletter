@@ -148,7 +148,7 @@ function NewsletterForm() {
                   <span className="text-[#ADB0B1]">
                     {successMessage.email_address}
                   </span>{" "}
-                  to our waitlist. Keep an eye on your inbox for the latest
+                  to our contacts. Keep an eye on your inbox for the latest
                   Prayse news!
                 </p>
               )}
