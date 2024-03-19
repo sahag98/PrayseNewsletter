@@ -26,7 +26,7 @@ export default function Home() {
             >
               Newsletter
             </h1>
-            <p className="z-10 text-sm font-bold text-center text-transparent duration-800 animate-fade-in-3 bg-white/60 cursor-default  whitespace-nowrap bg-clip-text">
+            <p className="z-10 text-sm text-center text-transparent duration-800 animate-fade-in-3 bg-white/60 cursor-default  whitespace-nowrap bg-clip-text">
               And stay up-to-date <br /> with our most recent updates & news!
             </p>
           </div>
